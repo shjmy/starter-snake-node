@@ -36,10 +36,26 @@ app.post('/start', (request, response) => {
 // Handle POST request to '/move'
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
+  var direction = 'down'; // = ['up','down','left','right']
+  
+  var zerofoodx = request.body.board.food[0].x;
+  var zerofoody = request.body.board.food[0].y;
+  var currheadx = request.body.you.body[0].x;
+  var currheady = request.body.you.body[0].y;
 
+  if (currheadx > zerofoodx) {
+    direction = 'left'
+  }else if (currheadx < zerofoodx) {
+    direction = 'right'
+  }else if (currheady > zerofoody) {
+    direction = 'up'
+  }else if (currheady < zerofoody) {
+    direction = 'down'
+  }
   // Response data
+  
   const data = {
-    move: 'right', // one of: ['up','down','left','right']
+    move: direction// one of: ['up','down','left','right']
   }
 
   return response.json(data)
